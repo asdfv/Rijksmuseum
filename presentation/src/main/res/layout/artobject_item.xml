@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="artObject"
+            type="by.grodno.vasili.domain.model.ArtObject" />
+
+        <variable
+            name="handler"
+            type="by.grodno.vasili.rijksmuseum.feature.collection.CollectionActivity" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/art_object_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> handler.onItemClick(artObject.id)}"
+        card_view:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/preview_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/item_preview"
+                android:src="@drawable/placeholder_image"
+                app:imageUrl="@{artObject.webImage.url}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{artObject.title}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintBottom_toTopOf="@id/subtitle_label"
+                app:layout_constraintEnd_toStartOf="@id/preview_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tool:text="Portret van Jacob Cornelisz van Oostsanen" />
+
+            <TextView
+                android:id="@+id/subtitle_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{artObject.longTitle}"
+                app:layout_constraintEnd_toStartOf="@id/preview_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_label"
+                tool:text="Portret van Jacob Cornelisz van Oostsanen, Jacob Cornelisz. van Oostsanen (atelier van), ca. 1533" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
