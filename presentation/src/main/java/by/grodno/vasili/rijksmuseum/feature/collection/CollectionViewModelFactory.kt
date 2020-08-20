@@ -8,8 +8,8 @@ import by.grodno.vasili.domain.usecase.GetCollectionUseCase
  * ViewModel factory for [CollectionActivity].
  */
 internal class CollectionViewModelFactory(
-    private val getCollectionUseCase: GetCollectionUseCase,
-    private val sourceFactory: CollectionItemDatasourceFactory
+        private val getCollectionUseCase: GetCollectionUseCase,
+        private val sourceFactory: CollectionItemDatasourceFactory
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CollectionViewModel::class.java)) {

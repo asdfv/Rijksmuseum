@@ -5,7 +5,7 @@ import by.grodno.vasili.domain.repository.CollectionRepository
 
 /**
  * Use case for retrieving [Collection] with page of items inside.
-*/
+ */
 class GetCollectionUseCase(
         private val repository: CollectionRepository
 ) : UseCase<GetCollectionUseCase.Params, Collection>() {

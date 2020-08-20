@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Rijksmuseum</string>
     <string name="item_preview">Item preview</string>
+    <string name="id">ID</string>
+    <string name="object_number">Object number</string>
+    <string name="title">Title</string>
+    <string name="principal">Principal</string>
+    <string name="description">Description</string>
 </resources>

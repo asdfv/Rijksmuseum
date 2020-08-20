@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
-import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 import by.grodno.vasili.domain.model.ArtObject
+import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 import timber.log.Timber
 import java.util.concurrent.Executors
 
@@ -15,19 +15,19 @@ import java.util.concurrent.Executors
  * View model for activity witch present list of [ArtObject]s.
  */
 internal class CollectionViewModel(
-    private val getCollectionUseCase: GetCollectionUseCase,
-    private val sourceFactory: CollectionItemDatasourceFactory
+        private val getCollectionUseCase: GetCollectionUseCase,
+        private val sourceFactory: CollectionItemDatasourceFactory
 ) : ViewModel() {
     private val dataSourceLiveData: MutableLiveData<PageKeyedDataSource<Int, ArtObject>> =
-        sourceFactory.dataSourceLiveData
+            sourceFactory.dataSourceLiveData
 
     val pagedListLiveData: LiveData<PagedList<ArtObject>> by lazy {
         val config = PagedList.Config.Builder()
-            .setPageSize(10)
-            .build()
+                .setPageSize(10)
+                .build()
         LivePagedListBuilder(sourceFactory, config)
-            .setFetchExecutor(Executors.newSingleThreadExecutor())
-            .build()
+                .setFetchExecutor(Executors.newSingleThreadExecutor())
+                .build()
     }
 
     /**

@@ -1,7 +1,9 @@
 package by.grodno.vasili.data.datasource.retrofit
 
 import by.grodno.vasili.data.response.CollectionResponse
+import by.grodno.vasili.data.response.DetailsResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -13,7 +15,15 @@ interface CollectionApiService {
      */
     @GET("nl/collection")
     suspend fun getCollection(
-        @Query("p") page: Int,
-        @Query("ps") itemsPerPage: Int = 20,
+            @Query("p") page: Int,
+            @Query("ps") itemsPerPage: Int = 20,
     ): CollectionResponse
+
+    /**
+     * Get art object details by [objectNumber].
+     */
+    @GET("nl/collection/{objectNumber}")
+    suspend fun getDetails(
+            @Path("objectNumber") objectNumber: String
+    ): DetailsResponse
 }

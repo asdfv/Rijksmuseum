@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools">
+    xmlns:tool="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="artObject"
-            type="by.grodno.vasili.domain.model.ArtObject" />
+            type="by.grodno.vasili.domain.model.ArtObject"
+            />
 
         <variable
             name="handler"
-            type="by.grodno.vasili.rijksmuseum.feature.collection.CollectionActivity" />
+            type="by.grodno.vasili.rijksmuseum.feature.collection.CollectionActivity"
+            />
     </data>
 
     <androidx.cardview.widget.CardView
         style="@style/art_object_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> handler.onItemClick(artObject.id)}"
-        card_view:cardUseCompatPadding="true">
+        android:onClick="@{() -> handler.onItemClick(artObject.objectNumber)}"
+        card_view:cardUseCompatPadding="true"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
+            android:padding="8dp"
+            >
 
             <ImageView
                 android:id="@+id/preview_image"
@@ -37,7 +43,8 @@
                 app:imageUrl="@{artObject.webImage.url}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <TextView
                 android:id="@+id/title_label"
@@ -51,7 +58,8 @@
                 app:layout_constraintEnd_toStartOf="@id/preview_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tool:text="Portret van Jacob Cornelisz van Oostsanen" />
+                tool:text="Portret van Jacob Cornelisz van Oostsanen"
+                />
 
             <TextView
                 android:id="@+id/subtitle_label"
@@ -61,7 +69,8 @@
                 app:layout_constraintEnd_toStartOf="@id/preview_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title_label"
-                tool:text="Portret van Jacob Cornelisz van Oostsanen, Jacob Cornelisz. van Oostsanen (atelier van), ca. 1533" />
+                tool:text="Portret van Jacob Cornelisz van Oostsanen, Jacob Cornelisz. van Oostsanen (atelier van), ca. 1533"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -1,8 +1,8 @@
 package by.grodno.vasili.rijksmuseum.feature.collection
 
 import androidx.paging.PageKeyedDataSource
-import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 import by.grodno.vasili.domain.model.ArtObject
+import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -10,13 +10,13 @@ import kotlinx.coroutines.launch
  * Datasource for pagination.
  */
 class CollectionItemDatasource(
-    private val getCollectionUseCase: GetCollectionUseCase,
-    private val scope: CoroutineScope
+        private val getCollectionUseCase: GetCollectionUseCase,
+        private val scope: CoroutineScope
 ) : PageKeyedDataSource<Int, ArtObject>() {
 
     override fun loadInitial(
-        params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, ArtObject>
+            params: LoadInitialParams<Int>,
+            callback: LoadInitialCallback<Int, ArtObject>
     ) {
         scope.launch {
             val artObjects = getCollectionUseCase.execute(GetCollectionUseCase.Params(1)).artObjects
@@ -25,8 +25,8 @@ class CollectionItemDatasource(
     }
 
     override fun loadBefore(
-        params: LoadParams<Int>,
-        callback: LoadCallback<Int, ArtObject>
+            params: LoadParams<Int>,
+            callback: LoadCallback<Int, ArtObject>
     ) {
     }
 
@@ -34,7 +34,7 @@ class CollectionItemDatasource(
         scope.launch {
             val page = params.key
             val artObjects =
-                getCollectionUseCase.execute(GetCollectionUseCase.Params(page)).artObjects
+                    getCollectionUseCase.execute(GetCollectionUseCase.Params(page)).artObjects
             callback.onResult(artObjects, page + 1)
         }
     }

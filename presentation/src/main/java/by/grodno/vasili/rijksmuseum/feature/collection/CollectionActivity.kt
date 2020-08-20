@@ -1,5 +1,6 @@
 package by.grodno.vasili.rijksmuseum.feature.collection
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import by.grodno.vasili.domain.model.ArtObject
 import by.grodno.vasili.rijksmuseum.R
 import by.grodno.vasili.rijksmuseum.databinding.ActivityCollectionBinding
 import by.grodno.vasili.rijksmuseum.feature.base.BaseActivity
+import by.grodno.vasili.rijksmuseum.feature.details.DetailsActivity
 import timber.log.Timber
 
 /**
@@ -17,9 +19,11 @@ import timber.log.Timber
  */
 class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {
     private lateinit var model: CollectionViewModel
+
+    override val contentView = R.layout.activity_collection
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val dependencies = CollectionDependenciesModule(lifecycleScope)
         val adapter = dependencies.adapter
         model = ViewModelProvider(this, dependencies.factory).get(CollectionViewModel::class.java)
@@ -31,16 +35,16 @@ class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {
     /**
      * Handler for click on recycler view item.
      */
-    fun onItemClick(id: String?) {
-        if (id == null) {
+    fun onItemClick(objectNumber: String?) {
+        if (objectNumber == null) {
             showToast("Sorry, we can`t show you this item details.")
             Timber.e("Empty id in recycler view.")
             return
         }
-        showToast(id)
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra(DetailsActivity.OBJECT_NUMBER_KEY, objectNumber)
+        startActivity(intent)
     }
-
-    override val contentView = R.layout.activity_collection
 
     private fun initRecyclerView(adapter: CollectionAdapter) {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)

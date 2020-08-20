@@ -7,10 +7,10 @@ import com.google.gson.annotations.SerializedName
  * Data model for WebImage response.
  */
 data class WebImageResponse(
-    @SerializedName("guid") val guid: String,
-    @SerializedName("width") val width: Int,
-    @SerializedName("height") val height: Int,
-    @SerializedName("url") val url: String
+        @SerializedName("guid") val guid: String,
+        @SerializedName("width") val width: Int,
+        @SerializedName("height") val height: Int,
+        @SerializedName("url") val url: String
 ) {
     /**
      * Converter to domain model.

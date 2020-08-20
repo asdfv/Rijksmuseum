@@ -15,12 +15,12 @@ import by.grodno.vasili.rijksmuseum.databinding.ArtobjectItemBinding
  * Adapter for paginated recycler view with collection's items.
  */
 class CollectionAdapter(
-    diffUtilCallback: DiffUtil.ItemCallback<ArtObject>
+        diffUtilCallback: DiffUtil.ItemCallback<ArtObject>
 ) : PagedListAdapter<ArtObject, CollectionAdapter.ViewHolder>(diffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.artobject_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.artobject_item, parent, false)
         return ViewHolder(itemView)
     }
 
