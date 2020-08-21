@@ -2,6 +2,7 @@ package by.grodno.vasili.rijksmuseum.feature.collection
 
 import androidx.recyclerview.widget.DiffUtil
 import by.grodno.vasili.data.datasource.retrofit.RetrofitCollectionDatasource
+import by.grodno.vasili.data.error.DataErrorConverter
 import by.grodno.vasili.data.repository.CollectionDataRepository
 import by.grodno.vasili.domain.model.ArtObject
 import by.grodno.vasili.domain.usecase.GetCollectionUseCase
@@ -30,9 +31,9 @@ internal class CollectionDependenciesModule(scope: CoroutineScope) {
 
     init {
         val getCollectionUseCase =
-                GetCollectionUseCase(CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)))
-        val datasourceFactory = CollectionItemDatasourceFactory(getCollectionUseCase, scope)
-        factory = CollectionViewModelFactory(getCollectionUseCase, datasourceFactory)
+                GetCollectionUseCase(CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)), DataErrorConverter())
+        val datasourceFactory = CollectionItemDatasourceFactory(getCollectionUseCase)
+        factory = CollectionViewModelFactory(datasourceFactory)
         adapter = CollectionAdapter(DIFF_CALLBACK)
     }
 }

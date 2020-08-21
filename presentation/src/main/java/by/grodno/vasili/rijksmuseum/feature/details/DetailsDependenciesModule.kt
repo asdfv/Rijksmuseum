@@ -1,6 +1,7 @@
 package by.grodno.vasili.rijksmuseum.feature.details
 
 import by.grodno.vasili.data.datasource.retrofit.RetrofitCollectionDatasource
+import by.grodno.vasili.data.error.DataErrorConverter
 import by.grodno.vasili.data.repository.CollectionDataRepository
 import by.grodno.vasili.domain.usecase.GetDetailsUseCase
 import by.grodno.vasili.rijksmuseum.BuildConfig
@@ -11,7 +12,7 @@ import by.grodno.vasili.rijksmuseum.BuildConfig
 internal class DetailsDependenciesModule {
     val factory: DetailsViewModelFactory by lazy {
         val getDetailsUseCase =
-                GetDetailsUseCase(CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)))
+                GetDetailsUseCase(CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)), DataErrorConverter())
         DetailsViewModelFactory(getDetailsUseCase)
     }
 }

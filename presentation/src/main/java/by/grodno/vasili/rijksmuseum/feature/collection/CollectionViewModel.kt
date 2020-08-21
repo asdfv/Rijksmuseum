@@ -7,7 +7,6 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import by.grodno.vasili.domain.model.ArtObject
-import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 import timber.log.Timber
 import java.util.concurrent.Executors
 
@@ -15,7 +14,6 @@ import java.util.concurrent.Executors
  * View model for activity witch present list of [ArtObject]s.
  */
 internal class CollectionViewModel(
-        private val getCollectionUseCase: GetCollectionUseCase,
         private val sourceFactory: CollectionItemDatasourceFactory
 ) : ViewModel() {
     private val dataSourceLiveData: MutableLiveData<PageKeyedDataSource<Int, ArtObject>> =
@@ -43,6 +41,6 @@ internal class CollectionViewModel(
     }
 
     override fun onCleared() {
-        getCollectionUseCase.dispose()
+        invalidateDatasource()
     }
 }
