@@ -26,8 +26,7 @@ abstract class UseCase<Params, Type>(
     suspend fun execute(params: Params): Result<Type> = try {
         Result.Success(action(params))
     } catch (e: Throwable) {
-        val error = Result.Error(errorConverter.convert(e))
-        error
+        Result.Error(errorConverter.convert(e))
     }
 
     /**

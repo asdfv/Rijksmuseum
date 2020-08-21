@@ -13,118 +13,131 @@
             />
     </data>
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             >
 
-            <ImageView
-                android:id="@+id/preview_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/item_preview"
-                android:src="@drawable/placeholder_image"
-                app:imageUrl="@{artObjectDetails.webImage.url}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/id_label"
-                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                >
 
-            <TextView
-                android:id="@+id/id_label"
-                style="@style/details_label"
-                android:text="@string/id"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                <ImageView
+                    android:id="@+id/preview_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/item_preview"
+                    android:src="@drawable/placeholder_image"
+                    app:imageUrl="@{artObjectDetails.webImage.url}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/id_label"
+                    />
 
-            <TextView
-                android:id="@+id/id_text"
-                style="@style/details_text"
-                android:text="@{artObjectDetails.id}"
-                app:layout_constraintStart_toStartOf="@id/id_label"
-                app:layout_constraintTop_toBottomOf="@id/id_label"
-                tools:text="nl-SK-A-1505"
-                />
+                <TextView
+                    android:id="@+id/id_label"
+                    style="@style/details_label"
+                    android:text="@string/id"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
-            <TextView
-                android:id="@+id/object_number_label"
-                style="@style/details_label"
-                android:text="@string/object_number"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/id_text"
-                />
+                <TextView
+                    android:id="@+id/id_text"
+                    style="@style/details_text"
+                    android:text="@{artObjectDetails.id}"
+                    app:layout_constraintStart_toStartOf="@id/id_label"
+                    app:layout_constraintTop_toBottomOf="@id/id_label"
+                    tools:text="nl-SK-A-1505"
+                    />
 
-            <TextView
-                android:id="@+id/object_number_text"
-                style="@style/details_text"
-                android:text="@{artObjectDetails.objectNumber}"
-                app:layout_constraintStart_toStartOf="@id/id_label"
-                app:layout_constraintTop_toBottomOf="@id/object_number_label"
-                tools:text="SK-A-1505"
-                />
+                <TextView
+                    android:id="@+id/object_number_label"
+                    style="@style/details_label"
+                    android:text="@string/object_number"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/id_text"
+                    />
 
-            <TextView
-                android:id="@+id/title_label"
-                style="@style/details_label"
-                android:text="@string/title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/preview_image"
-                />
+                <TextView
+                    android:id="@+id/object_number_text"
+                    style="@style/details_text"
+                    android:text="@{artObjectDetails.objectNumber}"
+                    app:layout_constraintStart_toStartOf="@id/id_label"
+                    app:layout_constraintTop_toBottomOf="@id/object_number_label"
+                    tools:text="SK-A-1505"
+                    />
 
-            <TextView
-                android:id="@+id/title_text"
-                style="@style/details_text"
-                android:text='@{artObjectDetails.title}'
-                app:layout_constraintStart_toStartOf="@id/id_label"
-                app:layout_constraintTop_toBottomOf="@id/title_label"
-                tools:text="Een molen aan een poldervaart, bekend als ‘In de maand juli’"
-                />
+                <TextView
+                    android:id="@+id/title_label"
+                    style="@style/details_label"
+                    android:text="@string/title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/preview_image"
+                    />
 
-            <TextView
-                android:id="@+id/principal_label"
-                style="@style/details_label"
-                android:text="@string/principal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_text"
-                />
+                <TextView
+                    android:id="@+id/title_text"
+                    style="@style/details_text"
+                    android:text='@{artObjectDetails.title}'
+                    app:layout_constraintStart_toStartOf="@id/id_label"
+                    app:layout_constraintTop_toBottomOf="@id/title_label"
+                    tools:text="Een molen aan een poldervaart, bekend als ‘In de maand juli’"
+                    />
 
-            <TextView
-                android:id="@+id/principal_text"
-                style="@style/details_text"
-                android:layout_width="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/id_label"
-                app:layout_constraintTop_toBottomOf="@id/principal_label"
-                app:text='@{artObjectDetails.principalMaker.name}'
-                tools:text="Paul Joseph Constantin Gabriël"
-                />
+                <TextView
+                    android:id="@+id/principal_label"
+                    style="@style/details_label"
+                    android:text="@string/principal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_text"
+                    />
 
-            <TextView
-                android:id="@+id/description_label"
-                style="@style/details_label"
-                android:text="@string/description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/principal_text"
-                />
+                <TextView
+                    android:id="@+id/principal_text"
+                    style="@style/details_text"
+                    android:layout_width="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/id_label"
+                    app:layout_constraintTop_toBottomOf="@id/principal_label"
+                    app:text='@{artObjectDetails.principalMaker.name}'
+                    tools:text="Paul Joseph Constantin Gabriël"
+                    />
 
-            <TextView
-                android:id="@+id/description_text"
-                style="@style/details_text"
-                android:text="@{artObjectDetails.description}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/id_label"
-                app:layout_constraintTop_toBottomOf="@id/description_label"
-                tools:text="Een molen aan een poldervaart, bekend als ‘In de maand juli’, Paul Joseph Constantin Gabriël, ca. 1889"
-                />
+                <TextView
+                    android:id="@+id/description_label"
+                    style="@style/details_label"
+                    android:text="@string/description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/principal_text"
+                    />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/description_text"
+                    style="@style/details_text"
+                    android:text="@{artObjectDetails.description}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/id_label"
+                    app:layout_constraintTop_toBottomOf="@id/description_label"
+                    tools:text="Een molen aan een poldervaart, bekend als ‘In de maand juli’, Paul Joseph Constantin Gabriël, ca. 1889"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateOnly="true"
+            />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

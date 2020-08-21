@@ -1,6 +1,8 @@
 package by.grodno.vasili.rijksmuseum.feature.details
 
 import android.os.Bundle
+import androidx.core.view.isVisible
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import by.grodno.vasili.domain.usecase.Result
 import by.grodno.vasili.rijksmuseum.R
@@ -22,15 +24,26 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>() {
         val dependency = DetailsDependenciesModule()
         model = ViewModelProvider(this, dependency.factory).get(DetailsViewModel::class.java)
         val objectNumber = intent.getStringExtra(OBJECT_NUMBER_KEY)
-        model.loadDetails(objectNumber).observe(this) { result ->
+        observeDetails(objectNumber, model, this)
+    }
+
+    private fun observeDetails(
+            objectNumber: String?,
+            model: DetailsViewModel,
+            owner: LifecycleOwner
+    ) {
+        model.loadDetails(objectNumber).observe(owner) { result ->
             when (result) {
-                is Result.Success -> binding.artObjectDetails = result.data
+                is Result.Success -> {
+                    binding.progressBar.isVisible = false
+                    binding.artObjectDetails = result.data
+                }
                 is Result.Error -> {
+                    binding.progressBar.isVisible = false
                     showToast("Loading problem.")
                     Timber.e(result.exception, "Error loading art object $objectNumber.")
                 }
             }
-
         }
     }
 }
