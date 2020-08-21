@@ -19,7 +19,8 @@ class DataErrorConverter : ErrorConverter {
 
     private fun getHttpError(error: HttpException): RijksThrowable {
         return when (error.code()) {
-            HTTP_UNAUTHORIZED, HTTP_INTERNAL_ERROR -> WrongApiKey(error, "Probably wrong or missing IP Key.")
+            HTTP_UNAUTHORIZED -> WrongApiKey(error, "Wrong IP Key.")
+            HTTP_INTERNAL_ERROR -> RetrievingDataError(error, "Server problem or wrong IP Key.")
             HTTP_NOT_FOUND -> NotFound(error)
             else -> RetrievingDataError(error)
         }
