@@ -2,16 +2,17 @@ package by.grodno.vasili.rijksmuseum.feature.collection
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.grodno.vasili.domain.model.ArtObject
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.grodno.vasili.rijksmuseum.R
 import by.grodno.vasili.rijksmuseum.databinding.ActivityCollectionBinding
 import by.grodno.vasili.rijksmuseum.feature.base.BaseActivity
 import by.grodno.vasili.rijksmuseum.feature.details.DetailsActivity
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -24,12 +25,19 @@ class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dependencies = CollectionDependenciesModule(lifecycleScope)
-        val adapter = dependencies.adapter
+        val dependencies = CollectionDependenciesModule()
         model = ViewModelProvider(this, dependencies.factory).get(CollectionViewModel::class.java)
-        initRecyclerView(adapter)
-        initPullToRefresh()
-        model.pagedListLiveData.observe(this, stopRefreshAndSubmitPageList(adapter))
+        val adapter = dependencies.adapter
+        initRecyclerView(this, binding.recyclerView, adapter)
+        initPullToRefresh(model, binding.refreshContainer)
+        lifecycleScope.launch { initPagination(model, adapter) }
+    }
+
+    private suspend fun initPagination(model: CollectionViewModel, adapter: CollectionAdapter) {
+        model.artObjectsFlow.collectLatest {
+            binding.refreshContainer.isRefreshing = false
+            adapter.submitData(it)
+        }
     }
 
     /**
@@ -46,19 +54,18 @@ class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {
         startActivity(intent)
     }
 
-    private fun initRecyclerView(adapter: CollectionAdapter) {
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
-    }
-
-    private fun initPullToRefresh() {
-        binding.refreshContainer.setOnRefreshListener { model.invalidateDatasource() }
-    }
-
-    private fun stopRefreshAndSubmitPageList(adapter: CollectionAdapter): Observer<PagedList<ArtObject>> {
-        return Observer { pagedList: PagedList<ArtObject> ->
-            binding.refreshContainer.isRefreshing = false
-            adapter.submitList(pagedList)
+    private fun initRecyclerView(
+            context: CollectionActivity,
+            recyclerView: RecyclerView,
+            collectionAdapter: CollectionAdapter
+    ) {
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = collectionAdapter
         }
+    }
+
+    private fun initPullToRefresh(model: CollectionViewModel, refreshContainer: SwipeRefreshLayout) {
+        refreshContainer.setOnRefreshListener { model.invalidateDatasource() }
     }
 }

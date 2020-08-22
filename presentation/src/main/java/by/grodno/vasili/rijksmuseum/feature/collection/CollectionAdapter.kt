@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.grodno.vasili.domain.model.ArtObject
@@ -16,26 +16,28 @@ import by.grodno.vasili.rijksmuseum.databinding.ArtobjectItemBinding
  */
 class CollectionAdapter(
         diffUtilCallback: DiffUtil.ItemCallback<ArtObject>
-) : PagedListAdapter<ArtObject, CollectionAdapter.ViewHolder>(diffUtilCallback) {
+) : PagingDataAdapter<ArtObject, CollectionAdapter.ArtObjectViewHolder>(diffUtilCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtObjectViewHolder {
         val itemView =
                 LayoutInflater.from(parent.context).inflate(R.layout.artobject_item, parent, false)
-        return ViewHolder(itemView)
+        return ArtObjectViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ArtObjectViewHolder, position: Int) {
         val item = getItem(position)
-        holder.binding?.apply {
-            artObject = item
-            handler = holder.itemView.context as CollectionActivity
+        if (item != null) {
+            holder.binding?.apply {
+                artObject = item
+                handler = holder.itemView.context as CollectionActivity
+            }
         }
     }
 
     /**
      * ViewHolder class for items Recycler view.
      */
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ArtObjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var binding: ArtobjectItemBinding? = DataBindingUtil.bind(itemView)
     }
 }

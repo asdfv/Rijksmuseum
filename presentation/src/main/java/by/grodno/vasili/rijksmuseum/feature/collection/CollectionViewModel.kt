@@ -1,43 +1,29 @@
 package by.grodno.vasili.rijksmuseum.feature.collection
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PageKeyedDataSource
-import androidx.paging.PagedList
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import by.grodno.vasili.domain.model.ArtObject
-import timber.log.Timber
-import java.util.concurrent.Executors
+import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 
 /**
  * View model for activity witch present list of [ArtObject]s.
  */
-internal class CollectionViewModel(
-        private val sourceFactory: CollectionItemDatasourceFactory
-) : ViewModel() {
-    private val dataSourceLiveData: MutableLiveData<PageKeyedDataSource<Int, ArtObject>> =
-            sourceFactory.dataSourceLiveData
+internal class CollectionViewModel(getCollectionUseCase: GetCollectionUseCase) : ViewModel() {
+    private lateinit var collectionPagingSource: CollectionPagingSource
 
-    val pagedListLiveData: LiveData<PagedList<ArtObject>> by lazy {
-        val config = PagedList.Config.Builder()
-                .setPageSize(10)
-                .build()
-        LivePagedListBuilder(sourceFactory, config)
-                .setFetchExecutor(Executors.newSingleThreadExecutor())
-                .build()
-    }
+    val artObjectsFlow = Pager(PagingConfig(pageSize = 10)) {
+        collectionPagingSource = CollectionPagingSource(getCollectionUseCase)
+        collectionPagingSource
+    }.flow.cachedIn(viewModelScope)
 
     /**
      * Invalidate datasource with [ArtObject]s.
      */
     fun invalidateDatasource() {
-        val datasource = dataSourceLiveData.value
-        if (datasource != null) {
-            datasource.invalidate()
-        } else {
-            Timber.w("DatasourceLiveData not contains datasource")
-        }
+        collectionPagingSource.invalidate()
     }
 
     override fun onCleared() {

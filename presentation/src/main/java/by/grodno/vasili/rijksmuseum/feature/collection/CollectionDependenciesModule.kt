@@ -7,12 +7,11 @@ import by.grodno.vasili.data.repository.CollectionDataRepository
 import by.grodno.vasili.domain.model.ArtObject
 import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 import by.grodno.vasili.rijksmuseum.BuildConfig
-import kotlinx.coroutines.CoroutineScope
 
 /**
- * Dependency factory for [CollectionActivity]
+ * Dependency factory for [CollectionActivity].
  */
-internal class CollectionDependenciesModule(scope: CoroutineScope) {
+internal class CollectionDependenciesModule {
     val factory: CollectionViewModelFactory
     val adapter: CollectionAdapter
 
@@ -32,8 +31,7 @@ internal class CollectionDependenciesModule(scope: CoroutineScope) {
     init {
         val getCollectionUseCase =
                 GetCollectionUseCase(CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)), DataErrorConverter())
-        val datasourceFactory = CollectionItemDatasourceFactory(getCollectionUseCase)
-        factory = CollectionViewModelFactory(datasourceFactory)
+        factory = CollectionViewModelFactory(getCollectionUseCase)
         adapter = CollectionAdapter(DIFF_CALLBACK)
     }
 }
