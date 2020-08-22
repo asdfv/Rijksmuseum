@@ -16,7 +16,9 @@ interface CollectionApiService {
     @GET("nl/collection")
     suspend fun getCollection(
             @Query("p") page: Int,
-            @Query("ps") itemsPerPage: Int = 20,
+            @Query("ps") itemsPerPage: Int = 10,
+            @Query("imgonly") imageOnly: Boolean = true,
+            @Query("s") sort: String = "artist",
     ): CollectionResponse
 
     /**

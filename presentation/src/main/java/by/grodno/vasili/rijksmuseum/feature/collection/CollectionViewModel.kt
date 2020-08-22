@@ -2,11 +2,10 @@ package by.grodno.vasili.rijksmuseum.feature.collection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
+import androidx.paging.*
 import by.grodno.vasili.domain.model.ArtObject
 import by.grodno.vasili.domain.usecase.GetCollectionUseCase
+import kotlinx.coroutines.flow.map
 
 /**
  * View model for activity witch present list of [ArtObject]s.
@@ -20,7 +19,28 @@ internal class CollectionViewModel(getCollectionUseCase: GetCollectionUseCase) :
     val artObjectsFlow = Pager(PagingConfig(pageSize = 10)) {
         collectionPagingSource = CollectionPagingSource(getCollectionUseCase)
         collectionPagingSource
-    }.flow.cachedIn(viewModelScope)
+    }.flow
+            .map { artObjectPagingData ->
+                artObjectPagingData.map { artObject -> UiModel.ArtObjectItem(artObject) }
+            }
+            .map { uiModelPagingData ->
+                uiModelPagingData.insertSeparators { before, after ->
+                    if (hasNextPrincipalDifferentFirstLetter(after, before)) {
+                        UiModel.SeparatorItem(after.principalFirstLetter()?.toUpperCase().toString())
+                    } else {
+                        null
+                    }
+                }
+            }
+            .cachedIn(viewModelScope)
+
+    private fun hasNextPrincipalDifferentFirstLetter(
+            after: UiModel.ArtObjectItem?,
+            before: UiModel.ArtObjectItem?
+    ) = after != null
+            && (before == null || before.principalFirstLetter() !== after.principalFirstLetter())
+
+    private fun UiModel.ArtObjectItem?.principalFirstLetter(): Char? = this?.artObject?.principalOrFirstMaker?.firstOrNull()
 
     /**
      * Invalidate datasource with [ArtObject]s.
@@ -32,4 +52,12 @@ internal class CollectionViewModel(getCollectionUseCase: GetCollectionUseCase) :
     override fun onCleared() {
         invalidateDatasource()
     }
+}
+
+/**
+ * Art object and separator wrapper for paginated flow.
+ */
+sealed class UiModel {
+    data class ArtObjectItem(val artObject: ArtObject) : UiModel()
+    data class SeparatorItem(val description: String) : UiModel()
 }

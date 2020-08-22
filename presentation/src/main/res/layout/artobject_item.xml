@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{artObject.title}"
+                android:text="@{artObject.principalOrFirstMaker}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintBottom_toTopOf="@id/subtitle_label"
                 app:layout_constraintEnd_toStartOf="@id/preview_image"
