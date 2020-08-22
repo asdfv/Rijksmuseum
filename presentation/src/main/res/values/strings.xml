@@ -6,4 +6,5 @@
     <string name="title">Title</string>
     <string name="principal">Principal</string>
     <string name="description">Description</string>
+    <string name="error_loading_collection">Something goes wrong when loading art objects.</string>
 </resources>

@@ -11,6 +11,7 @@ import by.grodno.vasili.domain.usecase.Result
 class CollectionPagingSource(
         private val getCollectionUseCase: GetCollectionUseCase
 ) : PagingSource<Int, ArtObject>() {
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArtObject> {
         val nextPageNumber = params.key ?: 1
         return when (val result = getCollectionUseCase.execute(GetCollectionUseCase.Params(nextPageNumber))) {
@@ -21,5 +22,10 @@ class CollectionPagingSource(
                     nextKey = nextPageNumber + 1
             )
         }
+    }
+
+    override fun invalidate() {
+        super.invalidate()
+        getCollectionUseCase.dispose()
     }
 }

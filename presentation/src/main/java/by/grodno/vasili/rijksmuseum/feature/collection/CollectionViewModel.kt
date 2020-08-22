@@ -14,6 +14,9 @@ import by.grodno.vasili.domain.usecase.GetCollectionUseCase
 internal class CollectionViewModel(getCollectionUseCase: GetCollectionUseCase) : ViewModel() {
     private lateinit var collectionPagingSource: CollectionPagingSource
 
+    /**
+     * Flow with paginated [ArtObject]s to subscribe in UI.
+     */
     val artObjectsFlow = Pager(PagingConfig(pageSize = 10)) {
         collectionPagingSource = CollectionPagingSource(getCollectionUseCase)
         collectionPagingSource

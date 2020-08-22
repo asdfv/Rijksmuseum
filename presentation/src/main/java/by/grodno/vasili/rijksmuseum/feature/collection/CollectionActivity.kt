@@ -2,8 +2,11 @@ package by.grodno.vasili.rijksmuseum.feature.collection
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -28,9 +31,21 @@ class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {
         val dependencies = CollectionDependenciesModule()
         model = ViewModelProvider(this, dependencies.factory).get(CollectionViewModel::class.java)
         val adapter = dependencies.adapter
+        observeLoadingStates(adapter, binding.progressBar)
         initRecyclerView(this, binding.recyclerView, adapter)
         initPullToRefresh(model, binding.refreshContainer)
         lifecycleScope.launch { initPagination(model, adapter) }
+    }
+
+    private fun observeLoadingStates(adapter: CollectionAdapter, progressBar: ProgressBar) {
+        adapter.addLoadStateListener {
+            lifecycleScope.launch {
+                adapter.loadStateFlow.collectLatest { loadStates ->
+                    progressBar.isVisible = loadStates.refresh is LoadState.Loading
+                    if (loadStates.refresh is LoadState.Error) showToast(getString(R.string.error_loading_collection))
+                }
+            }
+        }
     }
 
     private suspend fun initPagination(model: CollectionViewModel, adapter: CollectionAdapter) {
