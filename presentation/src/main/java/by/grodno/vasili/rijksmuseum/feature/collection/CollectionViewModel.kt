@@ -1,5 +1,6 @@
 package by.grodno.vasili.rijksmuseum.feature.collection
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
@@ -10,7 +11,9 @@ import kotlinx.coroutines.flow.map
 /**
  * View model for activity witch present list of [ArtObject]s.
  */
-internal class CollectionViewModel(getCollectionUseCase: GetCollectionUseCase) : ViewModel() {
+internal class CollectionViewModel @ViewModelInject constructor(
+        getCollectionUseCase: GetCollectionUseCase
+) : ViewModel() {
     private lateinit var collectionPagingSource: CollectionPagingSource
 
     /**
@@ -46,7 +49,7 @@ internal class CollectionViewModel(getCollectionUseCase: GetCollectionUseCase) :
      * Invalidate datasource with [ArtObject]s.
      */
     fun invalidateDatasource() {
-        collectionPagingSource.invalidate()
+        if (this::collectionPagingSource.isInitialized) collectionPagingSource.invalidate()
     }
 
     override fun onCleared() {

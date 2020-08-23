@@ -17,6 +17,7 @@ buildscript {
             'archLifecycle'         : '2.2.0',
             'card'                  : '1.0.0',
             'daggerHiltAndroid'     : '2.28.3-alpha',
+            'jetpackHilt'           : '1.0.0-alpha02',
             'glide'                 : '4.11.0',
             'kotlin'                : '1.4.0',
             'lifecycle'             : '2.2.0',

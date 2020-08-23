@@ -3,17 +3,23 @@ package by.grodno.vasili.rijksmuseum.feature.collection
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ProgressBar
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import by.grodno.vasili.data.datasource.retrofit.RetrofitCollectionDatasource
+import by.grodno.vasili.data.error.DataErrorConverter
+import by.grodno.vasili.data.repository.CollectionDataRepository
+import by.grodno.vasili.domain.usecase.GetCollectionUseCase
+import by.grodno.vasili.rijksmuseum.BuildConfig
 import by.grodno.vasili.rijksmuseum.R
 import by.grodno.vasili.rijksmuseum.databinding.ActivityCollectionBinding
 import by.grodno.vasili.rijksmuseum.feature.base.BaseActivity
 import by.grodno.vasili.rijksmuseum.feature.details.DetailsActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -21,16 +27,21 @@ import timber.log.Timber
 /**
  * Activity represent list of items from collection.
  */
+@AndroidEntryPoint
 class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {
-    private lateinit var model: CollectionViewModel
+
+    private val model: CollectionViewModel by viewModels {
+        val getCollectionUseCase = GetCollectionUseCase(
+                CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)),
+                DataErrorConverter())
+        CollectionViewModelFactory(getCollectionUseCase)
+    }
 
     override val contentView = R.layout.activity_collection
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dependencies = CollectionDependenciesModule()
-        model = ViewModelProvider(this, dependencies.factory).get(CollectionViewModel::class.java)
-        val adapter = dependencies.adapter
+        val adapter = CollectionAdapter()
         observeLoadingStates(adapter, binding.progressBar)
         initRecyclerView(this, binding.recyclerView, adapter)
         initPullToRefresh(model, binding.refreshContainer)
