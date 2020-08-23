@@ -12,7 +12,7 @@ data class DetailsResponse(
             objectNumber = artObjectDetails.objectNumber,
             title = artObjectDetails.title,
             webImage = artObjectDetails.webImage.toDomainModel(),
-            description = artObjectDetails.description,
+            description = artObjectDetails.description ?: "",
             principalMaker = artObjectDetails.principalMakerResponses.map { it.toDomainModel() }.first()
     )
 }

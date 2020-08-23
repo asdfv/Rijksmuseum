@@ -1,5 +1,6 @@
 package by.grodno.vasili.rijksmuseum.feature.details
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import by.grodno.vasili.domain.error.RetrievingDataError
@@ -10,7 +11,7 @@ import by.grodno.vasili.domain.usecase.Result
 /**
  * View model for activity witch present [ArtObject]`s details.
  */
-internal class DetailsViewModel(
+internal class DetailsViewModel @ViewModelInject constructor(
         private val getDetailsUseCase: GetDetailsUseCase
 ) : ViewModel() {
 

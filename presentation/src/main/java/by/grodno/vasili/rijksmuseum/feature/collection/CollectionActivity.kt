@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Activity represent list of items from collection.
@@ -30,12 +31,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {
 
-    private val model: CollectionViewModel by viewModels {
-        val getCollectionUseCase = GetCollectionUseCase(
-                CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)),
-                DataErrorConverter())
-        CollectionViewModelFactory(getCollectionUseCase)
-    }
+    private val model: CollectionViewModel by viewModels()
 
     override val contentView = R.layout.activity_collection
 

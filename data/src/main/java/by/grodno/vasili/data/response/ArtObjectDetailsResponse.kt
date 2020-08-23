@@ -10,6 +10,6 @@ data class ArtObjectDetailsResponse(
 		@SerializedName("objectNumber") val objectNumber: String,
 		@SerializedName("title") val title: String,
 		@SerializedName("webImage") val webImage: WebImageResponse,
-		@SerializedName("description") val description: String,
+		@SerializedName("description") val description: String?,
 		@SerializedName("principalMakers") val principalMakerResponses: List<PrincipalMakersResponse>
 )

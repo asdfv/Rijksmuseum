@@ -7,6 +7,7 @@ import by.grodno.vasili.data.repository.CollectionDataRepository
 import by.grodno.vasili.domain.error.ErrorConverter
 import by.grodno.vasili.domain.repository.CollectionRepository
 import by.grodno.vasili.domain.usecase.GetCollectionUseCase
+import by.grodno.vasili.domain.usecase.GetDetailsUseCase
 import by.grodno.vasili.rijksmuseum.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -41,4 +42,11 @@ object DataModule {
             repository: CollectionRepository,
             errorConverter: ErrorConverter
     ): GetCollectionUseCase = GetCollectionUseCase(repository, errorConverter)
+
+    @Provides
+    @Singleton
+    fun provideDetailsUseCase(
+            repository: CollectionRepository,
+            errorConverter: ErrorConverter
+    ): GetDetailsUseCase = GetDetailsUseCase(repository, errorConverter)
 }

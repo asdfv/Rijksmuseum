@@ -4,12 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
-import by.grodno.vasili.data.datasource.retrofit.RetrofitCollectionDatasource
-import by.grodno.vasili.data.error.DataErrorConverter
-import by.grodno.vasili.data.repository.CollectionDataRepository
-import by.grodno.vasili.domain.usecase.GetDetailsUseCase
 import by.grodno.vasili.domain.usecase.Result
-import by.grodno.vasili.rijksmuseum.BuildConfig
 import by.grodno.vasili.rijksmuseum.R
 import by.grodno.vasili.rijksmuseum.databinding.ActivityDetailsBinding
 import by.grodno.vasili.rijksmuseum.feature.base.BaseActivity
@@ -22,12 +17,7 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>() {
         const val OBJECT_NUMBER_KEY = "by.grodno.vasili.rijksmuseum.feature.details.EXTRA.OBJECT_NUMBER_KEY"
     }
 
-    private val model: DetailsViewModel by viewModels {
-        val getDetailsUseCase = GetDetailsUseCase(
-                CollectionDataRepository(RetrofitCollectionDatasource(BuildConfig.API_KEY)),
-                DataErrorConverter())
-        DetailsViewModelFactory(getDetailsUseCase)
-    }
+    private val model: DetailsViewModel by viewModels()
 
     override val contentView = R.layout.activity_details
 
