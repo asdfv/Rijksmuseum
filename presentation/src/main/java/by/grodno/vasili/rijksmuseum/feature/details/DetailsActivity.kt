@@ -11,6 +11,9 @@ import by.grodno.vasili.rijksmuseum.feature.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+/**
+ * Represent screen with detailed information about art object.
+ */
 @AndroidEntryPoint
 class DetailsActivity : BaseActivity<ActivityDetailsBinding>() {
     companion object {

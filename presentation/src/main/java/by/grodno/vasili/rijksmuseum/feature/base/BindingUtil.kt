@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
  * Class for bindings utils and adapters.
  */
 object BindingUtil {
+
     @JvmStatic
     @BindingAdapter("imageUrl")
     fun setImageUrl(imageView: ImageView, url: String?) {

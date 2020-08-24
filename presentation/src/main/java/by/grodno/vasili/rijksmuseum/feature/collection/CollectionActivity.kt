@@ -26,7 +26,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * Activity represent list of items from collection.
+ * Represent screen with list of art objects.
  */
 @AndroidEntryPoint
 class CollectionActivity : BaseActivity<ActivityCollectionBinding>() {

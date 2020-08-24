@@ -15,6 +15,9 @@ internal class DetailsViewModel @ViewModelInject constructor(
         private val getDetailsUseCase: GetDetailsUseCase
 ) : ViewModel() {
 
+    /**
+     * Load details for art object with [objectNumber] and create LivaData to subscribe.
+     */
     fun loadDetails(objectNumber: String?) = liveData {
         if (objectNumber.isNullOrBlank()) {
             emit(Result.Error(RetrievingDataError(message = "Object number is null or blank.")))
