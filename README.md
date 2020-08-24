@@ -15,7 +15,7 @@
 - Error handling with custom domain layers errors
 - Written unit test for `DetailsViewModel`
 
-###Tools are used
+### Tools are used
 - Kotlin coroutines
 - Android JetPack Pagination 3
 - Android JetPack Hilt
