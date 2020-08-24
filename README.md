@@ -24,8 +24,9 @@
 - JUnit 5
 
 ### What can be improved
-- Figure out with sorting on server side, because sorting by "artist" works strange, because in responce we did not have any "artist" field and "principalOrFirstMaker" are not sorted in response
+- Figure out with sorting on server side, because sorting by "artist" works strange, because in response we did not have any "artist" field and "principalOrFirstMaker" are not sorted in response
 - Response dos not have a small image for preview - it is a bad idea to download large images for preview in list items
+- Create scoped dependencies for Hilt 
 - Check API documentation about nullable fields and change data response models with nullable types where needed
 - Organize gradle dependencies versions in external module (example: [link](https://github.com/muratcanbur/ProjectX))
 - Add a toolbar

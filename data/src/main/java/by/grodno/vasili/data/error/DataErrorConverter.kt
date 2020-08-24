@@ -9,6 +9,7 @@ import java.net.SocketTimeoutException
  * [ErrorConverter] for data layer.
  */
 class DataErrorConverter : ErrorConverter {
+
     override fun convert(error: Throwable): RijksThrowable {
         return when (error) {
             is HttpException -> getHttpError(error)

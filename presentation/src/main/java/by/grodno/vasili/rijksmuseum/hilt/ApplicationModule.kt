@@ -16,16 +16,16 @@ import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
 /**
- * Hilt module for data layer dependencies.
+ * Hilt module with application dependencies.
  */
 @Module
 @InstallIn(ApplicationComponent::class)
-object DataModule {
+object ApplicationModule {
 
     @Provides
     @Singleton
     fun provideCollectionDatasource(): CollectionDatasource =
-            RetrofitCollectionDatasource(BuildConfig.API_KEY)
+            RetrofitCollectionDatasource(BuildConfig.API_KEY, BuildConfig.DEBUG)
 
     @Provides
     @Singleton
