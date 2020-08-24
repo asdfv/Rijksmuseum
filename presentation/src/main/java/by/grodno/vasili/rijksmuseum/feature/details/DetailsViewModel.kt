@@ -16,8 +16,8 @@ internal class DetailsViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     fun loadDetails(objectNumber: String?) = liveData {
-        if (objectNumber == null) {
-            emit(Result.Error(RetrievingDataError(message = "Object number is null.")))
+        if (objectNumber.isNullOrBlank()) {
+            emit(Result.Error(RetrievingDataError(message = "Object number is null or blank.")))
         } else {
             val details = getDetailsUseCase.execute(GetDetailsUseCase.Params(objectNumber))
             emit(details)
