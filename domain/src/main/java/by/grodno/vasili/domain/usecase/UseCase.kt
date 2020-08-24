@@ -2,6 +2,7 @@ package by.grodno.vasili.domain.usecase
 
 import by.grodno.vasili.domain.error.DefaultErrorConverter
 import by.grodno.vasili.domain.error.ErrorConverter
+import by.grodno.vasili.domain.error.RijksThrowable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -42,5 +43,5 @@ abstract class UseCase<Params, Type>(
  */
 sealed class Result<out R> {
     data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Throwable) : Result<Nothing>()
+    data class Error(val exception: RijksThrowable) : Result<Nothing>()
 }

@@ -32,6 +32,6 @@
 - Add a toolbar
 - Add more tests, not only for the presentation layer
 - Add JetPack Navigation
-- Off-line handling and local cache
+- Off-line handling and local cache (LocalDatasource for Repository)
 - Move base URL to build.gradle 
 - Stop loading list of art objects when API data limit exceeded

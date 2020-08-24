@@ -2,6 +2,7 @@ package by.grodno.vasili.rijksmuseum.feature.details
 
 import androidx.lifecycle.Observer
 import by.grodno.vasili.domain.error.RetrievingDataError
+import by.grodno.vasili.domain.error.UnknownError
 import by.grodno.vasili.domain.model.Details
 import by.grodno.vasili.domain.usecase.GetDetailsUseCase
 import by.grodno.vasili.domain.usecase.Result
