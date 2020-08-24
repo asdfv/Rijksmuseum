@@ -15,13 +15,13 @@
 - Error handling with custom domain layers errors
 - Written unit test for `DetailsViewModel`
 
-###Tools are used:
-Kotlin coroutines
-Android JetPack Pagination 3
-Android JetPack Hilt
-Android JetPack ViewModel/LiveData
-Android Databinding
-JUnit 5
+###Tools are used
+- Kotlin coroutines
+- Android JetPack Pagination 3
+- Android JetPack Hilt
+- Android JetPack ViewModel/LiveData
+- Android Databinding
+- JUnit 5
 
 ### What can be improved
 - Figure out with sorting on server side, because sorting by "artist" works strange, because in responce we did not have any "artist" field and "principalOrFirstMaker" are not sorted in response
